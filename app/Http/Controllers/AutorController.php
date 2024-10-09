@@ -7,46 +7,42 @@ use Illuminate\Http\Request;
 
 class AutorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Autor::query();
+
+        if ($request->has('nome')) {
+            $query->where('nome', 'like', '%' . $request->input('nome') . '%');
+        }
+
+        $autores = $query->paginate($request->input('perPage', 50));
+
+        return view('autores.index', compact('autores'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('autores.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nome' => 'required|string|max:225',
+            'biografia' => 'nullable|string',
+            'data_nascimento' => 'nullable|date',
+            'nacionalidade' => 'required|string|max:255',
+        ]);
+        
+        Autor::create($validated);
+
+        return redirect()->route('autores.index')->with('success', 'Autor adicionado com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Autor  $autor
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Autor $autor)
+    public function show($id)
     {
-        //
+        $autor = Autor::findOrFail($id);
+        return view('autores.show', compact('autor'));
     }
 
     /**
@@ -55,31 +51,32 @@ class AutorController extends Controller
      * @param  \App\Models\Autor  $autor
      * @return \Illuminate\Http\Response
      */
-    public function edit(Autor $autor)
+    public function edit($id)
     {
-        //
+        $autor = Autor::findOrFail($id);
+        return view('autores.edit', compact('autor'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Autor  $autor
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Autor $autor)
-    {
-        //
+    public function update(Request $request, $id)
+    { 
+        $validated = $request->validate([
+            'nome' => 'required|string|max:225',
+            'biografia' => 'nullable|string',
+            'data_nascimento' => 'nullable|date',
+            'nacionalidade' => 'required|string|max:255',
+        ]);
+
+        $autor = Autor::findOrFail($id);
+        $autor->update($validated);
+
+        return redirect()->route('autores.index')->with('success', 'Autor atualizado com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Autor  $autor
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Autor $autor)
+    public function destroy($id)
     {
-        //
+        $autor = Autor::findOrFail($id);
+        $autor->delete();
+
+        return redirect()->route('autores.index')->with('success', 'Autor excluido com sucesso!');
     }
 }

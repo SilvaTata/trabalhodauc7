@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Autor extends Model
 {
-    protected $table = 'autores';
     use HasFactory;
+
+    protected $table = 'autores';
+
+    protected $fillable = [
+        'nome', 'biografia', 'data_nascimento', 'nacionalidade'
+    ];
+
+    protected $casts = [
+        'data_nascimento' => 'date',
+    ];
 }

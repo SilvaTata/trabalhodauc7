@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Biblioterapia',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo' => '<b>Biblioterapia',
+    'logo_img' =>'image.png',
+    'logo_img_class' => 'brand-image img-circle elevation-3 bg-white',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => 'Biblioterapia',
 
     /*
     |--------------------------------------------------------------------------
@@ -308,26 +308,24 @@ return [
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'text' => 'procurar',
         ],
         [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
+            'text' => 'Livros',
+            'url' => 'livros',
+            'icon' => 'fas fa-book-open',
         ],
         [
-            'text' => 'pages',
-            'url' => 'admin/pages',
+            'text' => 'Gêneros',
+            'url' => 'generos',
             'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
         ],
-        ['header' => 'account_settings'],
         [
-            'text' => 'profile',
-            'url' => 'admin/settings',
+            'text' => 'Autores',
+            'url' => 'autores',
             'icon' => 'fas fa-fw fa-user',
         ],
+        ['header' => 'account_settings'],
         [
             'text' => 'change_password',
             'url' => 'admin/settings',
