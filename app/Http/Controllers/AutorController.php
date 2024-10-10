@@ -45,12 +45,6 @@ class AutorController extends Controller
         return view('autores.show', compact('autor'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Autor  $autor
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $autor = Autor::findOrFail($id);

@@ -11,7 +11,6 @@ class AutorControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    
     public function testpode_listar_autores_com_paginacao()
     {
         Autor::factory()->count(15)->create();
@@ -20,7 +19,6 @@ class AutorControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewHas('autores');
     }
-
     
     public function testpode_criar_um_novo_autor()
     {
@@ -37,7 +35,6 @@ class AutorControllerTest extends TestCase
         $this->assertDatabaseHas('autores', ['nome' => 'Autor Teste']);
     }
 
-
     public function testpode_atualizar_um_autor_existente() {
         $autor = Autor::factory()->create();
         $dadosAtualizados = [
@@ -51,7 +48,6 @@ class AutorControllerTest extends TestCase
         $this->assertDatabaseHas('autores', ['nome' => 'Nome Atualizado']);
     }
 
-
     public function testpode_excluir_um_autor() {
         $autor = Autor::factory()->create();
         $response = $this->delete("/autores/{$autor->id}");
@@ -59,7 +55,6 @@ class AutorControllerTest extends TestCase
         $response->assertRedirect('/autores');
         $this->assertDatabaseMissing('autores', ['id' => $autor->id]);
     }
-
     
     public function testperformace_listar_autores_com_paginacao() {
         Autor::factory()->count(500)->create();
@@ -69,7 +64,6 @@ class AutorControllerTest extends TestCase
         $response->assertStatus(200);
         $this->assertTrue($duration < 0.2, "O tempo de resposta foi maior que 2 segundos: {$duration} segundos");
     }
-
      
     public function testperfomace_criar_autores_em_massa() {
         $start = microtime(true);
